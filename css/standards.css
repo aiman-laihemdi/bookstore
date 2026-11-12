@@ -1,0 +1,16 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    scroll-behavior: smooth;
+}
+
+a{
+    text-decoration: none;
+}
+
+p {
+    color: rgb(0, 0, 0);
+    max-width: 65ch;
+    font-size: 1.2rem;
+}
+

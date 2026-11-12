@@ -1,6 +1,7 @@
 let books = [
     {
-      "name": "Die Geheimnisse des Ozeans",
+      "name": "Die geheime Fabrik der Emotionen",
+      "image": "./assets/img/1.jpg",
       "author": "Clara Meer",
       "likes": 1250,
       "liked": true,
@@ -32,6 +33,7 @@ let books = [
     },
     {
       "name": "Der vergessene Pfad",
+      "image": "./assets/img/1.jpg",
       "author": "Maximilian Schwarz",
       "likes": 980,
       "liked": false,
@@ -41,116 +43,8 @@ let books = [
       "comments": []
     },
     {
-      "name": "Die Farben des Himmels",
-      "author": "Laura Blau",
-      "likes": 1520,
-      "liked": true,
-      "price": 22.95,
-      "publishedYear": 2019,
-      "genre": "Romantik",
-      "comments": [
-        {
-          "name": "LeserPeter",
-          "comment": "Die Handlung war fesselnd und die Charaktere unglaublich lebendig dargestellt."
-        },
-        {
-          "name": "BookLover21",
-          "comment": "Ein romantisches Meisterwerk, das mich tief berührt und bewegt hat."
-        },
-        {
-          "name": "FantasyNerd",
-          "comment": "Fantastische Welten und epische Abenteuer - genau mein Geschmack!"
-        },
-        {
-          "name": "SciFiEnthusiast",
-          "comment": "Die Zeitreise-Elemente waren genial und haben die Story spannend gemacht."
-        },
-        {
-          "name": "ReadingAddict",
-          "comment": "Ein unvergessliches Buch, das mich auf eine magische Reise mitgenommen hat."
-        }
-      ]
-    },
-    {
-      "name": "Das Rätsel der Zeit",
-      "author": "Alexander Weiss",
-      "likes": 750,
-      "liked": false,
-      "price": 18.00,
-      "publishedYear": 2020,
-      "genre": "Science-Fiction",
-      "comments": [
-        {
-          "name": "BuchKenner",
-          "comment": "Ein spannendes Abenteuer, das mich von Anfang an mitgerissen hat."
-        },
-        {
-          "name": "LeseWurm",
-          "comment": "Die Liebesgeschichte war herzergreifend und wunderschön geschrieben."
-        }
-      ]
-    },
-    {
-      "name": "Der letzte Wächter",
-      "author": "Sabine Grün",
-      "likes": 1300,
-      "liked": true,
-      "price": 16.75,
-      "publishedYear": 2017,
-      "genre": "Fantasy",
-      "comments": []
-    },
-    {
-      "name": "Im Schatten des Mondes",
-      "author": "Philipp Silber",
-      "likes": 890,
-      "liked": false,
-      "price": 12.30,
-      "publishedYear": 2022,
-      "genre": "Science-Fiction",
-      "comments": [
-        {
-          "name": "BücherLiebhaber",
-          "comment": "Eine magische Reise durch eine faszinierende Fantasiewelt, absolut fesselnd."
-        },
-        {
-          "name": "Leseratte",
-          "comment": "Ein packender Science-Fiction-Roman, der mich zum Nachdenken gebracht hat."
-        }
-      ]
-    },
-    {
-      "name": "Jenseits der Sterne",
-      "author": "Oliver Schwarz",
-      "likes": 1450,
-      "liked": true,
-      "price": 21.00,
-      "publishedYear": 2015,
-      "genre": "Science-Fiction",
-      "comments": [
-        {
-          "name": "Leser123",
-          "comment": "Ein fesselndes Abenteuer, das mich von Anfang bis Ende mitgerissen hat."
-        }
-      ]
-    },
-    {
-      "name": "Das verborgene Königreich",
-      "author": "Elena Gold",
-      "likes": 920,
-      "liked": false,
-      "price": 17.50,
-      "publishedYear": 2020,
-      "genre": "Fantasy",
-      "comments": [
-        {
-          "name": "Bookworm92",
-          "comment": "Ein faszinierendes Buch, das mich von der ersten Seite an gefesselt hat."
-        }
-      ]
-    },
-    {
       "name": "Liebe in Zeiten des Krieges",
+      "image": "./assets/img/1.jpg",
       "author": "Emilia Rot",
       "likes": 1800,
       "liked": true,
@@ -172,4 +66,55 @@ let books = [
         }
       ]
     }
-  ]
+  ];
+    
+
+  //function
+
+    function renderBooks(){
+        let containerBooksRef = document.getElementById('containerBookstore');
+            containerBooksRef.innerHTML = "";
+
+        for (let indexBooks = 0; indexBooks < books.length; indexBooks++) {
+            let book = books[indexBooks];
+
+            let commentsHTML = '';
+            for (let indexBooksComments = 0; indexBooksComments < book.comments.length; indexBooksComments++) {
+                let booksCommentsRef = book.comments[indexBooksComments];
+                commentsHTML += getCommentsTemplateHTML(booksCommentsRef);
+            }
+
+            
+        if (book.comments.length === 0){
+            commentsHTML = '<p><em>Noch keine Kommentare vorhanden.</em></p>';
+        }
+
+        containerBooksRef.innerHTML += getContentTemplateHTML(book, commentsHTML);
+
+        }
+    }
+
+    function getCommentsTemplateHTML(booksCommentsRef){
+        return `<p>
+                    <strong>${booksCommentsRef.name}:</strong>
+                    ${booksCommentsRef.comment}
+                </p>`
+    }
+
+    function getContentTemplateHTML(book, commentsHTML){
+        let heartIcon = book.liked ? '❤️' : '♡';
+        return `<div class="books-card">
+                    <h2>${book.name}</h2>
+                    <img src="${book.image}" alt="${book.name}">
+                    <p><strong>Autor:</strong> ${book.author}</p>
+                    <p><strong>Genre:</strong> ${book.genre} (${book.publishedYear})</p>
+                    <p><strong>Preis:</strong> ${book.price.toFixed(2)} €</p>
+                    <p><strong>Likes:</strong> ${book.likes} ${heartIcon}</p>
+
+                    <div class="comments-section">
+                        <h4>Kommentare:</h4>
+                        ${commentsHTML}
+                    </div>
+                        <hr>
+                </div>`
+    }
