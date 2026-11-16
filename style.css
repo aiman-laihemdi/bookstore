@@ -1,15 +1,8 @@
 
-/* =========================
-   GLOBAL
-========================= */
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-html {
     scroll-behavior: smooth;
 }
 
@@ -18,11 +11,9 @@ body {
     background-color: #f4f2ed;
     color: #292929;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
-
-/* =========================
-   HEADER
-========================= */
 
 header {
     width: 100%;
@@ -32,15 +23,13 @@ header {
     align-items: center;
     padding: 0 40px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
 }
-
-/* =========================
-   MAIN CONTAINER
-========================= */
 
 main {
     width: 100%;
     padding: 40px 20px;
+    flex: 1;
 }
 
 #containerBookstore {
@@ -53,24 +42,17 @@ main {
     margin: 0 auto;
 }
 
-/* =========================
-   BOOK CARDS
-========================= */
-
 .books-card {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-
+    flex: 0 1 350px;
     background-color: #ffffff;
     width: 350px;
     padding: 22px;
-
     gap: 14px;
-
     border-radius: 16px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
-
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -79,20 +61,12 @@ main {
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
 }
 
-/* =========================
-   BOOK TITLE
-========================= */
-
 .books-card h2 {
     font-size: 21px;
     line-height: 1.4;
     color: #26352e;
     min-height: 58px;
 }
-
-/* =========================
-   BOOK IMAGE
-========================= */
 
 .books-card img {
     width: 100%;
@@ -102,12 +76,8 @@ main {
     border-radius: 10px;
 }
 
-/* =========================
-   BOOK INFORMATION
-========================= */
-
 .books-card p {
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.6;
     color: #555;
     max-width: 100%;
@@ -116,10 +86,6 @@ main {
 .books-card strong {
     color: #26352e;
 }
-
-/* =========================
-   LIKES
-========================= */
 
 .likes-container {
     display: flex;
@@ -138,18 +104,13 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 38px;
     height: 38px;
-
     border: none;
     border-radius: 50%;
-
     background-color: #f4f2ed;
     cursor: pointer;
-
     font-size: 21px;
-
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
@@ -157,10 +118,6 @@ main {
     transform: scale(1.15);
     background-color: #fce4e4;
 }
-
-/* =========================
-   COMMENTS
-========================= */
 
 .comments-section {
     display: flex;
@@ -180,15 +137,13 @@ main {
     min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
-
     padding: 12px;
-
     background-color: #f8f7f4;
     border-radius: 10px;
 }
 
 .comments-list p {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.5;
     margin-bottom: 12px;
     overflow-wrap: anywhere;
@@ -198,8 +153,6 @@ main {
     margin-bottom: 0;
 }
 
-/* Scrollbar */
-
 .comments-list::-webkit-scrollbar {
     width: 6px;
 }
@@ -208,10 +161,6 @@ main {
     background-color: #b8c2ba;
     border-radius: 10px;
 }
-
-/* =========================
-   COMMENT INPUT
-========================= */
 
 .comment-input {
     display: flex;
@@ -224,13 +173,10 @@ main {
     flex: 1;
     min-width: 0;
     height: 42px;
-
     padding: 0 12px;
-
     border: 1px solid #ddd;
     border-radius: 8px;
-
-    font-size: 14px;
+    font-size: 16px;
     outline: none;
 }
 
@@ -240,13 +186,10 @@ main {
 
 .comment-input button {
     padding: 0 16px;
-
     border: none;
     border-radius: 8px;
-
     background-color: #26352e;
     color: white;
-
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
@@ -255,23 +198,15 @@ main {
     background-color: #405b49;
 }
 
-/* =========================
-   FOOTER
-========================= */
-
 footer {
     width: 100%;
     min-height: 70px;
     background-color: #26352e;
     margin-top: 40px;
+    flex-shrink: 0;
 }
 
-/* =========================
-   RESPONSIVE DESIGN
-========================= */
-
-@media (max-width: 768px) {
-
+@media screen and (max-width: 768px) {
     main {
         padding: 25px 15px;
     }
@@ -283,12 +218,11 @@ footer {
     .books-card {
         width: 100%;
         max-width: 450px;
+        flex-basis: 100%;
     }
-
 }
 
-@media (max-width: 380px) {
-
+@media screen and (max-width: 380px) {
     .books-card {
         padding: 15px;
     }
@@ -304,5 +238,4 @@ footer {
     .comment-input button {
         padding: 0 10px;
     }
-
 }
