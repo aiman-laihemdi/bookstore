@@ -1,7 +1,7 @@
 let books = [
     {
       "name": "Mein erstes Jahr",
-      "image": "../assets/img/1.jpeg",
+      "image": "./assets/img/1.jpeg",
       "author": "Denise Scialabba",
       "likes": 1250,
       "liked": true,
@@ -37,7 +37,7 @@ let books = [
     },
     {
       "name": "Mein erstes Jahr",
-      "image": "../assets/img/2.jpeg",
+      "image": "./assets/img/2.jpeg",
       "author": "Denise Scialabba",
       "likes": 980,
       "liked": false,
@@ -48,7 +48,7 @@ let books = [
     },
     {
       "name": "Die geheime Fabrik der Emotionen",
-      "image": "../assets/img/3.jpeg",
+      "image": "./assets/img/3.jpeg",
       "author": "Denise Scialabba",
       "likes": 1800,
       "liked": true,
@@ -79,37 +79,35 @@ let books = [
 
     if (savedBooks) {
     books = JSON.parse(savedBooks);
-    }
+    }function renderBooks(){
+    let containerBooksRef = document.getElementById('containerBookstore');
+        containerBooksRef.innerHTML = "";
 
-    function renderBooks(){
-        let containerBooksRef = document.getElementById('containerBookstore');
-            containerBooksRef.innerHTML = "";
+    for (let indexBooks = 0; indexBooks < books.length; indexBooks++) {
+        let book = books[indexBooks];
 
-        for (let indexBooks = 0; indexBooks < books.length; indexBooks++) {
-            let book = books[indexBooks];
-
-            let commentsHTML = '';
-            for (let indexBooksComments = 0; indexBooksComments < book.comments.length; indexBooksComments++) {
-                let booksCommentsRef = book.comments[indexBooksComments];
-                commentsHTML += getCommentsTemplateHTML(booksCommentsRef);
-            }
+        let commentsHTML = '';
+        for (let indexBooksComments = 0; indexBooksComments < book.comments.length; indexBooksComments++) {
+            let booksCommentsRef = book.comments[indexBooksComments];
+            commentsHTML += getCommentsTemplateHTML(booksCommentsRef);
+        }
 
             
-        if (book.comments.length === 0){
-            commentsHTML = '<p><em>Noch keine Kommentare vorhanden.</em></p>';
-        }
-
-        containerBooksRef.innerHTML += getContentTemplateHTML(book, commentsHTML, indexBooks);
-
-        }
+    if (book.comments.length === 0){
+        commentsHTML = '<p><em>Noch keine Kommentare vorhanden.</em></p>';
     }
 
-    function getCommentsTemplateHTML(booksCommentsRef){
-        return `<p>
-                    <strong>${booksCommentsRef.name}:</strong>
-                    ${booksCommentsRef.comment}
-                </p>`
+    containerBooksRef.innerHTML += getContentTemplateHTML(book, commentsHTML, indexBooks);
+
     }
+}
+
+function getCommentsTemplateHTML(booksCommentsRef){
+    return `<p>
+                <strong>${booksCommentsRef.name}:</strong>
+                ${booksCommentsRef.comment}
+            </p>`
+}
 
 function getContentTemplateHTML(book, commentsHTML, indexBooks) {
     let heartIcon = book.liked ? '❤️' : '♡';
@@ -121,12 +119,12 @@ function getContentTemplateHTML(book, commentsHTML, indexBooks) {
                 <p><strong>Genre:</strong> ${book.genre} (${book.publishedYear})</p>
                 <p><strong>Preis:</strong> ${book.price.toFixed(2)} €</p>
 
-                <div class="likes-container">
-                  <span>❤️ ${book.likes} Likes</span>
+                <div class="likes-container" id="likes-${indexBooks}">
+                    <span> ${book.likes} Likes</span>
 
-                  <button class="like-button" onclick="toggleLike(${indexBooks})">
-                      ${heartIcon}
-                  </button>
+                    <button class="like-button" onclick="toggleLike(${indexBooks})">
+                        ${heartIcon}
+                    </button>
                 </div>
 
                 <div class="comments-section">
@@ -159,7 +157,16 @@ function toggleLike(indexBooks) {
     }
 
     saveBooks();
-    renderBooks();
+
+    let likesContainerRef = document.getElementById(`likes-${indexBooks}`);
+
+    likesContainerRef.innerHTML = `
+        <span>${books[indexBooks].likes} Likes</span>
+
+        <button class="like-button" onclick="toggleLike(${indexBooks})">
+            ${books[indexBooks].liked ? '❤️' : '♡'}
+        </button>
+    `;
 }
 
 function addComment(indexBooks) {
