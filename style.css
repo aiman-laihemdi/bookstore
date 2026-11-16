@@ -1,7 +1,46 @@
 
-body,
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 html {
-    color: black;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f2ed;
+    color: #292929;
+    min-height: 100vh;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    width: 100%;
+    height: 90px;
+    background-color: #26352e;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+main {
+    width: 100%;
+    padding: 40px 20px;
 }
 
 #containerBookstore {
@@ -9,25 +48,261 @@ html {
     flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
-    gap: 24px;
-    padding: 30px;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
+
+/* =========================
+   BOOK CARDS
+========================= */
 
 .books-card {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    background: rgb(156, 156, 156);
-    padding: 20px;
-    gap: 12px;
+    align-items: stretch;
+
+    background-color: #ffffff;
     width: 350px;
-    box-sizing: border-box;
-    border-radius: 12px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    padding: 22px;
+
+    gap: 14px;
+
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.books-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================
+   BOOK TITLE
+========================= */
+
+.books-card h2 {
+    font-size: 21px;
+    line-height: 1.4;
+    color: #26352e;
+    min-height: 58px;
+}
+
+/* =========================
+   BOOK IMAGE
+========================= */
+
+.books-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: contain;
+    background-color: #f8f7f4;
+    border-radius: 10px;
+}
+
+/* =========================
+   BOOK INFORMATION
+========================= */
 
 .books-card p {
-    max-width: 45ch;
-    line-height: 1.5;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #555;
+    max-width: 100%;
 }
 
+.books-card strong {
+    color: #26352e;
+}
+
+/* =========================
+   LIKES
+========================= */
+
+.likes-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 5px;
+}
+
+.likes-container span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #26352e;
+}
+
+.like-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    border-radius: 50%;
+
+    background-color: #f4f2ed;
+    cursor: pointer;
+
+    font-size: 21px;
+
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.like-button:hover {
+    transform: scale(1.15);
+    background-color: #fce4e4;
+}
+
+/* =========================
+   COMMENTS
+========================= */
+
+.comments-section {
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.comments-section h4 {
+    font-size: 17px;
+    color: #26352e;
+}
+
+.comments-list {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding: 12px;
+
+    background-color: #f8f7f4;
+    border-radius: 10px;
+}
+
+.comments-list p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    overflow-wrap: anywhere;
+}
+
+.comments-list p:last-child {
+    margin-bottom: 0;
+}
+
+/* Scrollbar */
+
+.comments-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.comments-list::-webkit-scrollbar-thumb {
+    background-color: #b8c2ba;
+    border-radius: 10px;
+}
+
+/* =========================
+   COMMENT INPUT
+========================= */
+
+.comment-input {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    padding-top: 5px;
+}
+
+.comment-input input {
+    flex: 1;
+    min-width: 0;
+    height: 42px;
+
+    padding: 0 12px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    font-size: 14px;
+    outline: none;
+}
+
+.comment-input input:focus {
+    border-color: #526d5c;
+}
+
+.comment-input button {
+    padding: 0 16px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: #26352e;
+    color: white;
+
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.comment-input button:hover {
+    background-color: #405b49;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    width: 100%;
+    min-height: 70px;
+    background-color: #26352e;
+    margin-top: 40px;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+@media (max-width: 768px) {
+
+    main {
+        padding: 25px 15px;
+    }
+
+    #containerBookstore {
+        gap: 20px;
+    }
+
+    .books-card {
+        width: 100%;
+        max-width: 450px;
+    }
+
+}
+
+@media (max-width: 380px) {
+
+    .books-card {
+        padding: 15px;
+    }
+
+    .books-card h2 {
+        font-size: 18px;
+    }
+
+    .comment-input {
+        gap: 5px;
+    }
+
+    .comment-input button {
+        padding: 0 10px;
+    }
+
+}

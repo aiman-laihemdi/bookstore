@@ -1,68 +1,72 @@
 let books = [
     {
-      "name": "Die geheime Fabrik der Emotionen",
+      "name": "Mein erstes Jahr",
       "image": "../assets/img/1.jpeg",
-      "author": "Clara Meer",
+      "author": "Denise Scialabba",
       "likes": 1250,
       "liked": true,
-      "price": 19.99,
-      "publishedYear": 2018,
-      "genre": "Fantasy",
+      "price": 34.99,
+      "publishedYear": 2025,
+      "genre": "Erinnerungsbuch",
       "comments": [
-        {
-          "name": "Leser123",
-          "comment": "Ein faszinierendes Abenteuerbuch, das mich von der ersten Seite an gefesselt hat."
-        },
-        {
-          "name": "Bookworm84",
-          "comment": "Eine romantische Geschichte, die mein Herz berührt und mich zum Nachdenken gebracht hat."
-        },
-        {
-          "name": "FantasyFanatic",
-          "comment": "Eine spannende Fantasiewelt, die ich nur schwer aus der Hand legen konnte."
-        },
-        {
-          "name": "SciFiGuru",
-          "comment": "Ein cleverer Science-Fiction-Roman mit interessanten Zeitreise-Konzepten und Charakteren."
-        },
-        {
-          "name": "NovelLover",
-          "comment": "Ein Buch, das voller magischer Überraschungen steckt und mich begeistert hat."
-        }
-      ]
+    {
+        "name": "MamaLena",
+        "comment": "Ein wunderschönes Erinnerungsbuch! Ich liebe es, die ersten besonderen Momente meines Kindes festzuhalten."
     },
     {
-      "name": "Der vergessene Pfad",
+        "name": "Sophie92",
+        "comment": "Sehr liebevoll gestaltet. Eine tolle Erinnerung, die man auch noch Jahre später gerne anschaut."
+    },
+    {
+        "name": "Familienglück",
+        "comment": "Perfekt für frischgebackene Eltern. Es macht unglaublich viel Spaß, die Seiten auszufüllen."
+    },
+    {
+        "name": "AnnaK",
+        "comment": "Ein tolles Geschenk zur Geburt! Die Gestaltung ist wunderschön und die Ideen sind sehr persönlich."
+    },
+    {
+        "name": "Miriam",
+        "comment": "Ich bin begeistert! Endlich ein Buch, in dem ich alle wichtigen Meilensteine meines Babys sammeln kann."
+    },
+    {
+        "name": "LittleMoments",
+        "comment": "Eine wunderschöne Möglichkeit, die Erinnerungen an das erste Lebensjahr für immer zu bewahren."
+    }
+]
+    },
+    {
+      "name": "Mein erstes Jahr",
       "image": "../assets/img/2.jpeg",
-      "author": "Maximilian Schwarz",
+      "author": "Denise Scialabba",
       "likes": 980,
       "liked": false,
-      "price": 14.50,
-      "publishedYear": 2021,
-      "genre": "Fantasy",
+      "price": 34.99,
+      "publishedYear": 2025,
+      "genre": "Erinnerungsbuch",
       "comments": []
     },
     {
-      "name": "Liebe in Zeiten des Krieges",
+      "name": "Die geheime Fabrik der Emotionen",
       "image": "../assets/img/3.jpeg",
-      "author": "Emilia Rot",
+      "author": "Denise Scialabba",
       "likes": 1800,
       "liked": true,
-      "price": 19.99,
-      "publishedYear": 2016,
-      "genre": "Romantik",
+      "price": 26.99,
+      "publishedYear": 2025,
+      "genre": "Kinderbuch",
       "comments": [
         {
-          "name": "Bibliophile23",
-          "comment": "Die Fantasiewelt war so lebendig, ich konnte das Buch kaum aus der Hand legen."
+            "name": "Leserherz",
+            "comment": "Ein wundervolles Buch, das Kindern auf spielerische Weise die Welt der Gefühle näherbringt."
         },
         {
-          "name": "StorySeeker",
-          "comment": "Eine unglaublich berührende Liebesgeschichte, die mich tief bewegt hat."
+            "name": "MamaMarie",
+            "comment": "Sehr liebevoll und kreativ geschrieben. Eine tolle Unterstützung, um mit Kindern über Emotionen zu sprechen."
         },
         {
-          "name": "SciFiExplorer",
-          "comment": "Spannende Zukunftsvisionen und interessante Charaktere machten diesen Roman einzigartig."
+            "name": "Bücherwurm23",
+            "comment": "Eine schöne Geschichte mit einer wichtigen Botschaft. Mein Kind hört begeistert zu!"
         }
       ]
     }
@@ -70,6 +74,12 @@ let books = [
     
 
   //function
+
+  let savedBooks = localStorage.getItem("books");
+
+    if (savedBooks) {
+    books = JSON.parse(savedBooks);
+    }
 
     function renderBooks(){
         let containerBooksRef = document.getElementById('containerBookstore');
@@ -101,7 +111,7 @@ let books = [
                 </p>`
     }
 
-    function getContentTemplateHTML(book, commentsHTML, indexBooks) {
+function getContentTemplateHTML(book, commentsHTML, indexBooks) {
     let heartIcon = book.liked ? '❤️' : '♡';
 
     return `<div class="books-card">
@@ -111,18 +121,32 @@ let books = [
                 <p><strong>Genre:</strong> ${book.genre} (${book.publishedYear})</p>
                 <p><strong>Preis:</strong> ${book.price.toFixed(2)} €</p>
 
-                <p><strong>Likes:</strong> ${book.likes}</p>
+                <div class="likes-container">
+                  <span>❤️ ${book.likes} Likes</span>
 
-                <button onclick="toggleLike(${indexBooks})">
-                    ${heartIcon}
-                </button>
+                  <button class="like-button" onclick="toggleLike(${indexBooks})">
+                      ${heartIcon}
+                  </button>
+                </div>
 
                 <div class="comments-section">
                     <h4>Kommentare:</h4>
-                    ${commentsHTML}
+
+                    <div class="comments-list">
+                        ${commentsHTML}
+                    </div>
                 </div>
-                <hr>
+
+                <div class="comment-input">
+                  <input type="text" id="commentInput-${indexBooks}" placeholder="Kommentar schreiben...">
+                  <button onclick="addComment(${indexBooks})">Senden</button>
+                </div>
             </div>`;
+            
+}
+
+function saveBooks() {
+    localStorage.setItem("books", JSON.stringify(books));
 }
 
 function toggleLike(indexBooks) {
@@ -134,5 +158,23 @@ function toggleLike(indexBooks) {
         books[indexBooks].liked = true;
     }
 
+    saveBooks();
+    renderBooks();
+}
+
+function addComment(indexBooks) {
+    let inputRef = document.getElementById(`commentInput-${indexBooks}`);
+    let commentText = inputRef.value;
+
+    if (commentText.trim() === "") {
+        return;
+    }
+
+    books[indexBooks].comments.unshift({
+        name: "Gast",
+        comment: commentText
+    });
+
+    saveBooks();
     renderBooks();
 }
